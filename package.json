@@ -1,0 +1,17 @@
+{
+  "name": "create_mr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "mr": "mr_creation.js",
+    "subpull": "submodule.js"
+  },
+  "type": "module",
+  "description": ""
+}
