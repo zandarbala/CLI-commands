@@ -1,5 +1,9 @@
 #!/usr/bin/env node
-
+/**
+ * @function subpull command
+ * @param { branch } pull from some branch
+ * Method used to pull from all submodule
+ */
 import { execSync } from "child_process";
 import { clearInterval } from "timers";
 import readline from 'readline';
@@ -10,10 +14,15 @@ try {
     const result = executeCommands(`git branch -r --list origin/${param}`);
     if (result?.trim()) branch = param;
     else {
-      const ans = await askQn('Branch not found. Continue with default branch? (y/n):')
-      console.log('and', ans);
+      await askQn('Branch not found. Continue with default branch? PRE_DEVELOPMENT (y/n):').then(res=>{
+        console.log('res',res);
+        if (res.toLowerCase() !== 'y') {
+          console.log('Operation cancelled.');
+          process.exit(0); // clean exit
+        }
+      })
+      // console.log('and', ans);
     }
-
   }
   await executeCommands(`git submodule foreach "git pull origin ${branch} ; git push"`);
   console.log('interval :');
@@ -42,14 +51,3 @@ function askQn(qn) {
     })
   })
 }
-
-// const spinnerChars = ['/', '-', '\\', '|'];
-// let i = 0;
-// let interval = setInterval(() => {
-//   let loader = spinnerChars[i % 4];
-//   process.stdout.write(
-//     `\rPulling all submodules from parent branch ${branch}.... ${loader}`
-//   );
-//   i++;
-// }, 500);
-// clearInterval(interval);
