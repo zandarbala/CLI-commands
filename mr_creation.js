@@ -13,9 +13,9 @@ if need can add the below param
 | `merge_request[draft]`                | `true` to mark as draft   |
  */
 
-import { execSync } from "child_process";
+import { execSync, spawnSync } from "child_process";
 try {
-  const param = process.argv.splice(2);
+  const param = process.argv.slice(2);
   console.log('param :', param);
   let assign = param[0] ? `&merge_request[assignee_ids][]=${param[0]}` : '';
   let targetBranch = param[1] ? `&merge_request[target_branch]=${param[1]}` : '&merge_request[target_branch]=PRE_DEVELOPMENT'
@@ -31,12 +31,12 @@ try {
   if (currentBranch === targetBranch.split('=').at(-1)) {
     throw new Error('Both branch are same unable to create MR');
   }
-  let repoUrl = executeCommands('git remote get-url origin');
-  if (repoUrl.endsWith(".git")) {
-    repoUrl = repoUrl.slice(0, -4);
-  }
+  let repoUrl = executeCommands('git remote get-url origin').replace('.git', '');
   repoUrl += `/-/merge_requests/new?merge_request[source_branch]=${currentBranch + assign + targetBranch}`
   console.log('Merge Url :', repoUrl);
+  // open in default browser
+  spawnSync("clip", { input: repoUrl }); // move the url to clipboard
+  executeCommands(`start "" "${repoUrl}"`);
 } catch (error) {
   console.error("Error❌:", error.message);
 }
