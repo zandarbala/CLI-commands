@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+/**
+ * Method used to create merge request using gitlab api
+ * NOTE: Please replace the TOKEN variable with your gitlab token before running the script
+ */
 import https from "https";
 import { execSync } from "child_process";
 try {
