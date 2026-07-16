@@ -48,3 +48,30 @@ try {
 function executeCommands(command) {
   return execSync(command, { encoding: "utf-8" }).trim();
 }
+
+// for Development mr
+// let branch = [
+//   ["PRE_DEVELOPMENT", "DEVELOPMENT"], ["DEVELOPMENT", "STAGING_PROD"]
+// ]
+// for (let val of branch) {
+//   let assign = param[0] ? `&merge_request[assignee_ids][]=${param[0]}` : '';
+//   let targetBranch = param[1] ? `&merge_request[target_branch]=${param[1]}` : '&merge_request[target_branch]=' + val[1];
+//   const currentBranch = val[0];
+//   let checkSourceBranch = executeCommands(`git branch -r --list origin/${currentBranch}`);
+//   let checkTargetBranch = executeCommands(`git branch -r --list origin/${targetBranch.split('=').at(-1)}`);
+//   if (!checkSourceBranch) {
+//     throw new Error('Source Branch not found. Please create or push it');
+//   }
+//   if (!checkTargetBranch) {
+//     throw new Error('Target Branch not found.');
+//   }
+//   if (currentBranch === targetBranch.split('=').at(-1)) {
+//     throw new Error('Both branch are same unable to create MR');
+//   }
+//   let repoUrl = executeCommands('git remote get-url origin').replace('.git', '');
+//   repoUrl += `/-/merge_requests/new?merge_request[source_branch]=${currentBranch + assign + targetBranch}`
+//   console.log('Merge Url :', repoUrl);
+//   // open in default browser
+//   spawnSync("clip", { input: repoUrl }); // move the url to clipboard
+//   executeCommands(`start "" "${repoUrl}"`);
+// }
