@@ -18,7 +18,7 @@ try {
   const param = process.argv.slice(2);
   console.log('param :', param);
   let assign = param[0] ? `&merge_request[assignee_ids][]=${param[0]}` : '';
-  let targetBranch = param[1] ? `&merge_request[target_branch]=${param[1]}` : '&merge_request[target_branch]=PRE_DEVELOPMENT'
+  let targetBranch = param[1] ? `&merge_request[target_branch]=${param[1]}` : '&merge_request[target_branch]=PRE_DEVELOPMENT';
   const currentBranch = executeCommands("git branch --show-current");
   let checkSourceBranch = executeCommands(`git branch -r --list origin/${currentBranch}`);
   let checkTargetBranch = executeCommands(`git branch -r --list origin/${targetBranch.split('=').at(-1)}`);
